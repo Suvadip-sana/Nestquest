@@ -1,0 +1,42 @@
+<% layout("/layouts/boilerplate") %>
+
+    <body>
+        <h1 class="d-flex justify-content-center mb-5 mt-3">All lists</h1>
+        <!-- <form action="/listings/new" method="get">
+        <button>Create new Listing</button>
+        </form> -->
+
+        <div class="row row-col-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-1 row-cols-xs-1 gridify">
+            <% for(let list of allList) {%>
+                <a href="/listings/<%= list._id %>" class="card-link">
+
+                    <div class="card col" >
+
+                        <img src="<%= list.image %>" class="card-img-top" alt="Listing-image" style="height: 19rem;">
+                        <div class="card-img-overlay"></div>
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                <span class="bold1">
+                                    <%= list.title %>
+                                </span> <br>
+                                <span class="opacity">
+                                    <%= list.location %>, &nbsp; <%= list.country %>
+                                </span> <br> 
+                                &#8377;<%= list.price.toLocaleString("en-IN") %>/night
+                            </p>
+                        </div>
+
+                    </div>
+
+                </a>
+
+                <% } %>
+        </div>
+
+
+
+
+
+
+    </body>

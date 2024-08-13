@@ -1,0 +1,59 @@
+<% layout("/layouts/boilerplate") %>
+
+
+    <body>
+
+        <div class="row">
+            
+            <div class="col-8 offset-2">
+                <h3 class="d-flex justify-content-center mt-5 mb-3 heading">Create New Listing</h3>
+
+                <form method="post" action="/listings" novalidate class="needs-validation">
+                    <!-- Send all the data as Object (listing object) -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label form-label-listings">Title</label>
+                        <input type="text" name="listing[title]" id="" placeholder="Enter a Title" class="form-control">
+                        <div class="invalid-feedback">Write the invalid content</div>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label form-label-listings">Description</label>
+                        <textarea name="listing[description]" id="" cols="30" rows="5" placeholder="Add Description......" class="form-control"></textarea>
+                        <div class="invalid-feedback">Write the invalid content</div>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label form-label-listings">Image Link/URL</label>
+                        <input type="text" name="listing[image]" id="" placeholder="Enter image URL/Link" class="form-control">
+                        <div class="invalid-feedback">Write the invalid content</div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-md-3">
+                            <label for="price" class="form-label form-label-listings">Price</label>
+                            <input type="number" name="listing[price]" id="" placeholder="1200" class="form-control">
+                            <div class="invalid-feedback">Write the invalid content</div>
+
+                        </div>
+                        <div class="mb-3 col-md-5">
+                            <label for="location" class="form-label form-label-listings">Location</label>
+                            <input type="text" name="listing[location]" id="" placeholder="Jaipur, Rajasthan" class="form-control">
+                            <div class="invalid-feedback">Write the invalid content</div>
+
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="country" class="form-label form-label-listings">Country</label>
+                            <input type="text" name="listing[country]" id="" placeholder="India" class="form-control">
+                            <div class="invalid-feedback">Write the invalid content</div>
+
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-danger mb-5 mt-3">Add</button>
+                </form>
+            </div>
+        </div>
+
+
+    </body>
