@@ -20,7 +20,7 @@
                             <p class="bold2">
                                 <%= data.location %>, &nbsp; <%= data.country %>
                             </p>
-                            &#8377;<%= data.price.toLocaleString("en-IN") %>
+                            &#8377;<%= data.price ? data.price.toLocaleString("en-IN") : "N/A" %>
 
                         </p>
                     </div>

@@ -23,7 +23,7 @@
                                 <span class="opacity">
                                     <%= list.location %>, &nbsp; <%= list.country %>
                                 </span> <br> 
-                                &#8377;<%= list.price.toLocaleString("en-IN") %>/night
+                                &#8377;<%= list.price ? list.price.toLocaleString("en-IN") : "N/A" %>
                             </p>
                         </div>
 

@@ -12,19 +12,19 @@
                     <!-- Send all the data as Object (listing object) -->
                     <div class="mb-3">
                         <label for="title" class="form-label form-label-listings">Title</label>
-                        <input type="text" name="listing[title]" id="" placeholder="Enter a Title" class="form-control">
-                        <div class="invalid-feedback">Write the invalid content</div>
+                        <input type="text" name="listing[title]" id="" class="form-control" required>
+                        <div class="invalid-feedback">Enter a title here.</div>
                         
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label form-label-listings">Description</label>
-                        <textarea name="listing[description]" id="" cols="30" rows="5" placeholder="Add Description......" class="form-control"></textarea>
-                        <div class="invalid-feedback">Write the invalid content</div>
+                        <textarea name="listing[description]" id="" cols="30" rows="5" class="form-control" required></textarea>
+                        <div class="invalid-feedback">Enter a description in the textarea.</div>
 
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label form-label-listings">Image Link/URL</label>
-                        <input type="text" name="listing[image]" id="" placeholder="Enter image URL/Link" class="form-control">
+                        <input type="text" name="listing[image]" id="" class="form-control">
                         <div class="invalid-feedback">Write the invalid content</div>
 
                     </div>
@@ -32,20 +32,20 @@
                     <div class="row">
                         <div class="mb-3 col-md-3">
                             <label for="price" class="form-label form-label-listings">Price</label>
-                            <input type="number" name="listing[price]" id="" placeholder="1200" class="form-control">
-                            <div class="invalid-feedback">Write the invalid content</div>
+                            <input type="number" name="listing[price]" id="" class="form-control" required>
+                            <div class="invalid-feedback">Enter price of the hotel/night.</div>
 
                         </div>
-                        <div class="mb-3 col-md-5">
+                        <div class="mb-3 col-md-5 position-relative">
                             <label for="location" class="form-label form-label-listings">Location</label>
-                            <input type="text" name="listing[location]" id="" placeholder="Jaipur, Rajasthan" class="form-control">
-                            <div class="invalid-feedback">Write the invalid content</div>
+                            <input type="text" name="listing[location]" id="" class="form-control" required>
+                            <div class="invalid-feedback">Enter the location.</div>
 
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="country" class="form-label form-label-listings">Country</label>
-                            <input type="text" name="listing[country]" id="" placeholder="India" class="form-control">
-                            <div class="invalid-feedback">Write the invalid content</div>
+                            <input type="text" name="listing[country]" id="" class="form-control" required>
+                            <div class="invalid-feedback">Enter country name</div>
 
                         </div>
                     </div>
