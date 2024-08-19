@@ -27,8 +27,8 @@ main()
     .then(() => {
         console.log("Connection Successful!");
     })
-    .catch((err) => {
-        console.log("Error occured on Dtabase connection!", err);
+    .catch((error) => {
+        console.log("Error occured on Dtabase connection!", error);
     });
 
 app.set("views", path.join(__dirname, "views")); // Serve the ejs file from the views folder
@@ -42,7 +42,6 @@ app.engine("ejs", ejsMate); // Set engine to ejs-mate
 
 
 app.use("/listings", listings); // For all the path that has common for '/listings'
-
 app.use("/listings/:id/reviews", reviews); // For all the path that has common for '/listings/:id/reviews'
 
 
