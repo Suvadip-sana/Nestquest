@@ -4,20 +4,30 @@ body{
     flex-direction: column;
     min-height: 100vh;
 }
+.index-heading{
+    color: #ff385c;
+}
+.index-heading span{
+    color: #222222;
+    font-size: 1rem;
+}
 .container{
     flex: 1;
 }
 .navbar{
-    height: 5rem;
+    height: 4rem;
     background-color: #fff;
+}
+.navbar-nav{
+    background-color: #fff !important;
 }
 .navbar-brand img{
     height: 1.5rem;
-    margin: 0 2rem;
+    /* margin: 0 2rem; */
 }
-.nav-link{
+/* .nav-link{
     color: #222222 !important;
-}
+} */
 footer{
     text-align: center;
     background-color: #ebebeb; 
@@ -43,12 +53,18 @@ footer{
     transition: all 0.8s;
     cursor: pointer;
 }
+.bi{
+    height: 1.5rem !important;
+    margin: none !important;
+    padding: 0 !important;
+}
 .f-links a:hover{
     text-decoration: underline;
 }
 .heading{
     font-weight: 600;
-    font-size: 2rem;
+    font-size: 1.6rem;
+    color: #222222;
 }
 /* .form-control:focus {
     border-color: #ff385c !important;
@@ -56,9 +72,21 @@ footer{
 }  */
   
 /* Cards style */
-.card{
+.listing-card{
     border: none !important;
     margin: 0 0.1rem 2.2rem 0.1rem !important;
+}
+.star{
+    font-size: 0.5rem;
+}
+.pointer{
+    cursor: pointer;
+}
+.dim{
+    opacity: 0.5;
+}
+.icon-size i {
+    font-size: 0.8rem; /* Adjust the size as needed */
 }
 .card-img-top{
     border-radius: 0.9rem !important;
@@ -75,6 +103,13 @@ footer{
     font-weight: 600 !important;
 }
 .bold2{
+    font-weight: 400 !important;
+}
+.location{
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+.about{
     font-weight: 500 !important;
 }
 .btns{
@@ -97,7 +132,8 @@ footer{
 }
 /* Style Show image */
 .show-img{
-    height: 40vh;
+    height: 50vh;
+    object-fit: cover !important;
 }
 .show-titel{
     font-size: 1.5rem;
@@ -105,8 +141,12 @@ footer{
 .opacity{
     opacity: 0.8;
 }
+
+.reviews input, textarea{
+    font-size: 0.8rem !important;
+}
 @media (max-width: 475px){
     .heading{
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 }
