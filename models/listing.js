@@ -1,36 +1,47 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// const forEmpty = ;
-// const fordefault = ;
+const Review = require("./review.js");
 
 const listingSchema = new Schema({
     title: {
         type: String,
-        required: true,
     },
     description: {
         type: String,
-        required:true,
     },
     image: {
         type: String,
-        default: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        set: (v) => v === "" ? "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" : v,
+        default: "https://a0.muscache.com/im/pictures/a91730be-ccb9-48de-ab20-125c5ee47ebe.jpg?",
+        set: (v) => v === "" ? "https://a0.muscache.com/im/pictures/a91730be-ccb9-48de-ab20-125c5ee47ebe.jpg?" : v,
         // Set for set a default value into this in case user does't provide any image URL
     },
     price: {
         type: Number,
-        required: true,
     },
     location:{
         type: String,
-        // required: true,
     },
     country: {
         type: String,
-        // required: true,
+    },
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Review"
+        },
+    ],
+});
+
+
+
+// Create a post middlware that when a listing was deleted it automatically delete it's review also
+listingSchema.post("findOneAndDelete", async (listing) => {
+    if(listing && listing.reviews.length > 0){
+        let res = await Review.deleteMany({ _id: { $in: listing.reviews }});
+        console.log(res);
     }
 });
+
 
 const Listing = mongoose.model("Listing", listingSchema);
 
