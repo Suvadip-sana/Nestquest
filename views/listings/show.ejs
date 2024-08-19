@@ -3,38 +3,200 @@
     <body>
 
         <div class="row">
-            <div class="col-6 row-cols-md-8 offset-3 row-cols-xs-1">
+            <!-- <div class="col-6 row-cols-md-8 offset-3 row-cols-xs-8"> -->
+            <div class="col col-lg-10 col-md-10 col-sm-10 cols-xs-10 offset-lg-1 offset-md-1 offset-sm-1">
 
-                <h3 class="d-flex justify-content-center mt-5 mb-4 heading">List Details</h3>
+                <h4 class="mt-4 mb-4 heading">
+                    <%= data.title %>
+                </h4>
 
-                <div class="card">
+                <div class="card listing-card">
                     <img src="<%= data.image %>" class="card-img-top show-img" alt="Card Image">
                     <div class="card-body">
                         <p class="card-text mt-2">
-                            <span class="bold1 show-titel">
-                                <%= data.title %>
-                            </span> <br>
+                            <h4 class="about">About this space</h4>
                             <span class="mt-1 opacity">
                                 <%= data.description %>
                             </span> <br>
-                            <p class="bold2">
-                                <%= data.location %>, &nbsp; <%= data.country %>
-                            </p>
-                            &#8377;<%= data.price ? data.price.toLocaleString("en-IN") : "N/A" %>
-
+                        <p class="location bold2 mt-2">
+                            <%= data.location %>, &nbsp; <%= data.country %>
                         </p>
+                        &#8377;<%= data.price ? data.price.toLocaleString("en-IN") : "N/A" %> &nbsp;<span class="dim">night</span>
+
+                            </p>
                     </div>
 
-                    <div class="btns ">
-                        <a href="/listings/<%= data._id %>/edit" class="btn btn-danger col-2">Edit</a>
+                    <div class="btns mb-2">
+                        <a href="/listings/<%= data._id %>/edit" class="btn btn-danger ">Edit</a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Delete
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header text-danger">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete this List?</h1>
+                                        <button type="button" class="btn-close text-danger" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this listing? This action cannot be undone. Once
+                                        deleted, the listing will be permanently removed from the system.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <!-- <button type="button" class="btn btn-primary">Delete</button> -->
+                                        <form action="/listings/<%= data._id %>?_method=DELETE" method="post">
+                                            <button class="btn btn-dark">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Review form -->
+                    <p>
+                        <button class="btn btn-outline-danger mt-2" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseWidthExample" aria-expanded="false"
+                            aria-controls="collapseWidthExample">
+                            Leave a review
+                        </button>
+                    </p>
+
+                    <div>
+                        <div class="collapse" id="collapseWidthExample">
+                            <div
+                                class="card listing-card card-body col-lg-7 col-md-8 col-sm-10 cols-xs-10 offset-lg-3 offset-md-2 offset-sm-1">
+
+                                <!-- Form for add reviews. -->
+                                <form action="/listings/<%= data._id %>/reviews" method="post" novalidate
+                                    class="needs-validation">
+
+                                    <div>
+                                        <label for="rating" class="form-label bold2">Rating</label>
+                                        <select
+                                            class="form-select form-select-sm focus-ring focus-ring-secondary border rounded-1 pointer"
+                                            name="review[rating]" id="rating" required>
+                                            <option selected disabled value="">Select Rating</option>
+                                            <option value="1">1 Star</option>
+                                            <option value="2">2 Stars</option>
+                                            <option value="3">3 Stars</option>
+                                            <option value="4">4 Stars</option>
+                                            <option value="5">5 Stars</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please give stars!</div>
+                                    </div>
+
+                                    <div>
+                                        <label for="comment" class="form-label bold2">Comments</label>
+                                        <textarea name="review[comment]"
+                                            class="form-control focus-ring focus-ring-secondary border rounded-1"
+                                            id="comment" placeholder="Add some commens..." rows="4" required></textarea>
+                                        <div class="invalid-feedback">Please add some comments for review!</div>
+                                    </div>
+
+                                    <button class="btn btn-outline-secondary btn-sm mt-2">Submit</button>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h3 class="mt-4 mb-3" heading><i class="fa-solid fa-star"></i> Reviews</h3>
+
+                    <div class="row">
+
+
+                        <!-- Check if there is review inside reviews. If no review there then print 'no review' -->
+                        <% if(data.reviews.length == 0) {%>
+                            <p class="ms-4">No review posted for this listing!</p>
+                        <% } else{ %> <!--If there is Review then display the review-->
+                            <% for(review of data.reviews) { %>
+                            
+                                <div class="card col-lg-5 col-sm-10 cols-xs-10 me-4 mt-4 mb-4 border-0">
+                                    <div class="card-body">
     
-                        <form action="/listings/<%= data._id %>?_method=DELETE" method="post">
-                            <button class="btn btn-dark">Delete</button>
-                        </form>
-                    </div>
-                </div>
+    
+                                        <div class="d-flex justify-content-between">
+                                            <h6 class="card-title">Bob Felix</h6>
 
-               
+                                            <!-- Create the review delete button with a model that have popup alert before delete -->
+                                            <div>  
+                                                <button class="btn text-muted icon-size btn-link" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal<%= review._id %>">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button> &nbsp;&nbsp;&nbsp;&nbsp;
+    
+    
+    
+                                                <div class="modal fade" id="exampleModal<%= review._id %>" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header text-danger">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete
+                                                                    this Review?</h1>
+                                                                <button type="button" class="btn-close text-danger"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete this review? This action
+                                                                cannot be undone. Once
+                                                                deleted, the review will be permanently removed from the
+                                                                system.
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <!-- <button type="button" class="btn btn-primary">Delete</button> -->
+                                                                <form
+                                                                    action="/listings/<%= data._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                                                    method="post">
+                                                                    <button class="btn btn-dark">Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+    
+    
+                                        <!-- Print the stars with a for loop & comment -->
+                                        <p class="card-text">
+                                            <% for(let i=1; i<=review.rating; i++) {%>
+                                                <i class="fa-solid fa-star star"></i>
+                                            <% } %>
+                                            <br>
+                                            <span class="text-muted">
+                                                <%=review.comment%>
+                                            </span>
+                                        </p>
+    
+    
+                                    </div>
+    
+                                </div>
+                        <% } %>
+                        
+                        
+                        <% } %>
+                    </div>
+
+                </div>
 
             </div>
         </div>
