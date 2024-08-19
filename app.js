@@ -4,9 +4,14 @@ const port = 4343;
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
-const Listing = require("./models/listing");
+// const Listing = require("./models/listing.js");
+// const Review = require("./models/review.js");
+// const wrapAsync = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/ExpressError.js"); // For throwing custom express error
+// const { listingSchema, reviewSchema } = require("./schema.js"); // Requiring schema.js vor validate the schema with Joi
 const ejsMate = require("ejs-mate");
-
+const listings = require("./routes/listing.js"); // Require listing.js for restucturing the paths using Express Router
+const reviews = require("./routes/review.js"); // For all reviews path
 
 app.listen(port, () => {
     console.log("App listening on port ", port);
@@ -18,99 +23,38 @@ async function main() {
     await mongoose.connect(mongoDbURL);
 };
 
-main() .then(() => {
-    console.log("Connection Successful!");
-}).catch((err) => {
-    console.log("Error occured on Dtabase connection!", err);
-});
-
+main()
+    .then(() => {
+        console.log("Connection Successful!");
+    })
+    .catch((err) => {
+        console.log("Error occured on Dtabase connection!", err);
+    });
 
 app.set("views", path.join(__dirname, "views")); // Serve the ejs file from the views folder
 app.set("view engine", "ejs"); // Set view engine to 'ejs'
 
 app.use(express.static(path.join(__dirname, "/public"))); // Serve the static file from public folder
-app.use(methodOverride("_method"));  // Use method override 
-app.use(express.urlencoded({extended: true}));
+app.use(methodOverride("_method")); // Use method override
+app.use(express.urlencoded({ extended: true }));
 app.engine("ejs", ejsMate); // Set engine to ejs-mate
 
 
-// app.get("/", (req, res) => {
-//     res.send("Working");
-// });
 
+app.use("/listings", listings); // For all the path that has common for '/listings'
 
-// app.get("/testListing", async (req, res) => {
-//     let samplelisting = new Listing ({
-//         title: "My New Villa",
-//         description: "By the Beach",
-//         price: 1200,
-//         location: "Calangute, Goa",
-//         country: "India",
-//     });
-//     await samplelisting.save();
-//     console.log("Sample saved");
-//     res.send("Success!");
-// });
+app.use("/listings/:id/reviews", reviews); // For all the path that has common for '/listings/:id/reviews'
 
 
 
-// Render the form to create the new user
-app.get("/listings/new", (req, res) => {
-    res.render("./listings/new.ejs");
+// To check the incomming request for non existing pathe except what i defind. Then display a page not found message.
+app.all("*", (req, res, next) => {
+    next(new ExpressError(404, "Page not found!"));
 });
 
-
-// Save the data of the Form into DB
-app.post("/listings", async (req, res) => {
-    let newListing = new Listing(req.body.listing); // Access the listing object from templet and then create a new Listing from this
-    await newListing.save();
-    res.redirect("/listings");
-})
-
-
-
-
-
-// Index route
-app.get("/listings", async (req, res) => {
-    const allList = await Listing.find({});
-    res.render("./listings/index.ejs", { allList });
+// Error handling middleware that triger by the asyncWrap function throw error.
+app.use((err, req, res, next) => {
+    let { statusCode = 500, message = "Something went wrong!" } = err; // Set default 500 status code and a message.
+    res.status(statusCode).render("./layouts/error.ejs", { message });
+    // res.status(statusCode).send(message);
 });
-
-
-
-
-// View specific one
-app.get("/listings/:id", async(req, res) => {
-    const {id} = req.params;
-    const data = await Listing.findById(id);
-    res.render("./listings/show.ejs", {data});
-});
-
-
-
-
-// Edit Rout -> Render the edit form
-app.get("/listings/:id/edit", async(req, res) => {
-    let {id} = req.params;
-    let data = await Listing.findById(id);
-    res.render("./listings/edit.ejs", {data});
-});
-
-
-// Save the updated data in DB
-app.put("/listings/:id", async (req, res) => {
-    let {id} = req.params;
-    await Listing.findByIdAndUpdate(id, {...req.body.listing});
-    res.redirect(`/listings/${id}`);
-});
-
-
-
-// Delete the Listings
-app.delete("/listings/:id", async(req, res) => {
-    let {id} = req.params;
-    await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-})
-
