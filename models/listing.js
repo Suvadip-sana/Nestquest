@@ -10,10 +10,8 @@ const listingSchema = new Schema({
         type: String,
     },
     image: {
-        type: String,
-        default: "https://a0.muscache.com/im/pictures/a91730be-ccb9-48de-ab20-125c5ee47ebe.jpg?",
-        set: (v) => v === "" ? "https://a0.muscache.com/im/pictures/a91730be-ccb9-48de-ab20-125c5ee47ebe.jpg?" : v,
-        // Set for set a default value into this in case user does't provide any image URL
+        url: String,
+        filename: String,        
     },
     price: {
         type: Number,
@@ -30,15 +28,19 @@ const listingSchema = new Schema({
             ref: "Review"
         },
     ],
+    owner: { // Add new key for owner
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
 });
 
 
 
-// Create a post middlware that when a listing was deleted it automatically delete it's review also
+// Create a post middlware that when a listing was deleted it automatically delete it's related review also from database
 listingSchema.post("findOneAndDelete", async (listing) => {
     if(listing && listing.reviews.length > 0){
         let res = await Review.deleteMany({ _id: { $in: listing.reviews }});
-        console.log(res);
+        // console.log(res);
     }
 });
 
