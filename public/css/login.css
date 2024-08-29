@@ -1,0 +1,97 @@
+.register-photo {
+    background:#ffffff;
+    padding:80px 0;
+    margin: 3rem 0;
+  }
+  
+  .register-photo .image-holder {
+    display:table-cell;
+    width:auto;
+    background:url(../images/travel5.webp);
+    background-size:cover;
+  }
+  
+  .register-photo .image-holder2{
+    display:table-cell;
+    width:auto;
+    background:url(../images/travel4.webp);
+    background-size:cover;
+  }
+  
+  .register-photo .form-container {
+    display:table;
+    max-width:900px;
+    width:90%;
+    margin:0 auto;
+    box-shadow:1px 1px 5px rgba(0,0,0,0.1);
+  }
+  
+  .register-photo form {
+    display:table-cell;
+    width:400px;
+    background-color:#ffffff;
+    padding:40px 60px;
+    color:#505e6c;
+  }
+  
+  @media (max-width:991px) {
+    .register-photo form {
+      padding:40px;
+    }
+  }
+  
+  .register-photo form h2 {
+    font-size:24px;
+    line-height:1.5;
+    margin-bottom:30px;
+  }
+  
+  .register-photo form .form-control {
+    background:#f7f9fc;
+    border:none;
+    border-bottom:1px solid #dfe7f1;
+    border-radius:0;
+    box-shadow:none;
+    outline:none;
+    color:inherit;
+    text-indent:6px;
+    height:40px;
+    margin: 1rem 0;
+  }
+  
+  .register-photo form .form-check {
+    font-size:13px;
+    line-height:20px;
+  }
+  
+  .register-photo form .btn-primary {
+    background:#ff385c;
+    border:none;
+    border-radius:4px;
+    padding:11px;
+    box-shadow:none;
+    margin-top:20px;
+    text-shadow:none;
+    outline:none !important;
+  }
+  
+  .register-photo form .btn-primary:hover, .register-photo form .btn-primary:active {
+    background:#ff385c;
+  }
+  
+  .register-photo form .btn-primary:active {
+    transform:translateY(1px);
+  }
+  
+  .register-photo form .already {
+    margin-top: 15px;
+    display:block;
+    text-align:center;
+    font-size:12px;
+    color:#6f7a85;
+    opacity:0.9;
+    text-decoration:none;
+  }
+  input::placeholder{
+    opacity: 0.5 !important;
+  }
