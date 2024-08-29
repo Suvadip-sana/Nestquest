@@ -1,17 +1,80 @@
-
-
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/"><img src="/images/logo2.png" alt=""></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/listings">All Listings</a>
-          <a class="nav-link" href="/listings/new">Add new Listings</a>
+  <div class="container-fluid">
+    <a class="navbar-brand ms-lg-5" href="/listings"><img src="/images/logo2.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav looking-good mobileNav2">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+
+
+
+        <!-- Mobile only -->
+
+        <div class="mobileNav">
+
+          <div class="navbar-nav">
+            <a class="nav-link" href="/listings">Explore</a>
+          </div>
+
+          <div>
+            <a class="nav-link " href="/listings/new">Nestquest your home</a>
+          </div>
+
+          <% if(!currUser) {%> <!--If inside currUser have not any user data then show this-->
+            <a class="nav-link" href="/signup">Sign up</a>
+            <a class="nav-link" href="/login">Log in</a>
+          <% } %>
+  
+          <% if(currUser) {%> <!--If inside currUser have any user data then show this-->
+            <a class="nav-link" href="/logout">Log out</a>
+          <% } %>
         </div>
+
+
+
+
+        <div class="looking-good flex mobileNav2">
+          <a class="nav-link " href="/listings/new">Nestquest your home</a>
+        </div>
+                
+
+        <div class="nav-link dropdown mobileNav2 d-down flex">
+
+          <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false"><i class="fa-solid fa-bars"></i> 
+            <% if(!currUser) {%>
+              <img src="/images/user4.png" alt="" class="profile1">
+            <% } %>
+
+            <% if(currUser) {%>
+              <img src="/images/user3.png" alt="" class="profile2">
+            <% } %>
+           </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+           
+            <% if(!currUser) {%> <!--If inside currUser have not any user data then show this-->
+              <li><a class="nav-link dropdown-item-text right" href="/signup">Sign up</a></li>
+              <li class="bor"><a class="nav-link right" href="/login">Log in</a></li>
+            <% } %>
+    
+            <% if(currUser) {%> <!--If inside currUser have any user data then show this-->
+              <li><a class="nav-link right" href="/logout">Log out</a></li>
+              <hr>
+              <li><p class="profile flex"><span>User: </span><%= currUser.username %></p></li>
+            <% } %>
+            
+
+          </ul>
+
+        </div>
+        
+        
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
