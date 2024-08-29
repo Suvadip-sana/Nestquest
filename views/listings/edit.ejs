@@ -3,34 +3,44 @@
     <body>
         <div class="row">
 
-            <div class="col-8 offset-2">
+            <div class="col col-lg-8 col-md-8 col-sm-10 cols-xs-10 offset-lg-2 offset-md-2 offset-sm-1 offset-sm-1">
                 <h3 class="d-flex justify-content-center mt-5 mb-3 heading">Edit this Listing</h3>
-                <form action="/listings/<%= data._id %>?_method=PUT" method="post">
-                    <!-- Send all the data as Object (listing object) -->
+                <form action="/listings/<%= data._id %>?_method=PUT" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-label form-label-listings">Title</label>
-                        <input type="text" name="listing[title]" class="form-control" id="" value="<%= data.title %>">
+                        <input type="text" name="listing[title]" class="form-control" id="" value="<%= data.title %>" required>
+                        <div class="invalid-feedback">Please enter a valid title.</div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label form-label-listings">Description</label>
-                        <textarea name="listing[description]" class="form-control" id="" cols="30" rows="5"><%= data.description %></textarea>
+                        <textarea name="listing[description]" class="form-control" id="" cols="30" rows="5" required><%= data.description %></textarea>
+                        <div class="invalid-feedback">Please enter a valid description.</div>
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-label form-label-listings">Image Link/URL</label>
-                        <input type="text" name="listing[image]" class="form-control" id="" value="<%=data.image%>">
+                        <label for="" class="form-label form-label-listings">Original Listing Image</label> <br>
+                        <img class="preview-image" src="<%=modifiedUrl%>" alt="Image Preview">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label form-label-listings">Update Listing Image</label>
+                        <input type="file" name="listing[image]" id="" class="form-control">
+                        <div class="form-text" id="basic-addon4">Upload image in .png, .jpg, .jpeg & .webp format.</div>
+
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-3">
                             <label for="price" class="form-label form-label-listings">Price</label>
-                            <input type="number" name="listing[price]" class="form-control" id="" value="<%= data.price %>">
+                            <input type="number" name="listing[price]" class="form-control" id="" value="<%= data.price %>" required>
+                            <div class="invalid-feedback">Please enter a valid price.</div>
                         </div>
                         <div class="mb-3 col-md-5">
                             <label for="location" class="form-label form-label-listings">Location</label>
-                            <input type="text" name="listing[location]" class="form-control" id="" value="<%= data.location %>">
+                            <input type="text" name="listing[location]" class="form-control" id="" value="<%= data.location %>" required>
+                            <div class="invalid-feedback">Please enter a valid location.</div>
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="country" class="form-label form-label-listings">Country</label>
-                            <input type="text" name="listing[country]" class="form-control" id="" value="<%= data.country %>">
+                            <input type="text" name="listing[country]" class="form-control" id="" value="<%= data.country %>" required>
+                            <div class="invalid-feedback">Please enter a valid country name.</div>
                         </div>
                     </div>
                     
@@ -38,5 +48,7 @@
                 </form>
             </div>
         </div>
+
+
 
     </body>

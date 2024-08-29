@@ -5,47 +5,47 @@
 
         <div class="row">
             
-            <div class="col-8 offset-2">
+            <div class="col col-lg-8 col-md-8 col-sm-10 cols-xs-10 offset-lg-2 offset-md-2 offset-sm-1 offset-sm-1">
                 <h3 class="d-flex justify-content-center mt-5 mb-3 heading">Create New Listing</h3>
 
-                <form method="post" action="/listings" novalidate class="needs-validation">
+                <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
                     <!-- Send all the data as Object (listing object) -->
                     <div class="mb-3">
                         <label for="title" class="form-label form-label-listings">Title</label>
                         <input type="text" name="listing[title]" id="" class="form-control" required>
-                        <div class="invalid-feedback">Enter a title here.</div>
-                        
+                        <div class="invalid-feedback">Please add a title.</div>                        
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label form-label-listings">Description</label>
                         <textarea name="listing[description]" id="" cols="30" rows="5" class="form-control" required></textarea>
-                        <div class="invalid-feedback">Enter a description in the textarea.</div>
+                        <div class="invalid-feedback">Please add a description.</div>
 
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="image" class="form-label form-label-listings">Image Link/URL</label>
-                        <input type="text" name="listing[image]" id="" class="form-control">
-                        <div class="invalid-feedback">Write the invalid content</div>
-
+                        <label for="image" class="form-label form-label-listings">Upload Listing Image</label>
+                        <input type="file" name="listing[image]" id="" class="form-control" required>
+                        <div class="form-text" id="basic-addon4">Upload image in .png, .jpg, .jpeg & .webp format.</div>
+                        <div class="invalid-feedback">Please upload a image.</div>
                     </div>
 
                     <div class="row">
                         <div class="mb-3 col-md-3">
                             <label for="price" class="form-label form-label-listings">Price</label>
                             <input type="number" name="listing[price]" id="" class="form-control" required>
-                            <div class="invalid-feedback">Enter price of the hotel/night.</div>
+                            <div class="invalid-feedback">Please add a price.</div>
 
                         </div>
                         <div class="mb-3 col-md-5 position-relative">
                             <label for="location" class="form-label form-label-listings">Location</label>
                             <input type="text" name="listing[location]" id="" class="form-control" required>
-                            <div class="invalid-feedback">Enter the location.</div>
+                            <div class="invalid-feedback">Please enter a valid location.</div>
 
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="country" class="form-label form-label-listings">Country</label>
                             <input type="text" name="listing[country]" id="" class="form-control" required>
-                            <div class="invalid-feedback">Enter country name</div>
+                            <div class="invalid-feedback">please enter a valid country name.</div>
 
                         </div>
                     </div>
