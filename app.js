@@ -21,7 +21,9 @@ const flash = require("connect-flash"); // For flash message
 const passport = require("passport"); // Require passport for authentication
 const LocalStrategy = require("passport-local"); // Require passport local for simple username password based authentication
 const User = require("./models/user.js"); // Require the user schema
-const wrapAsync = require("../utils/wrapAsync.js");
+const wrapAsync = require("./utils/wrapAsync.js");
+const Listing = require("./models/listing");
+
 
 
 app.listen(port, () => {
