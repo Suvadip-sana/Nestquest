@@ -21,6 +21,7 @@ const flash = require("connect-flash"); // For flash message
 const passport = require("passport"); // Require passport for authentication
 const LocalStrategy = require("passport-local"); // Require passport local for simple username password based authentication
 const User = require("./models/user.js"); // Require the user schema
+const wrapAsync = require("../utils/wrapAsync.js");
 
 
 app.listen(port, () => {
@@ -60,7 +61,7 @@ app.engine("ejs", ejsMate); // Set engine to ejs-mate
 const store = MongoStore.create({
     mongoUrl: mongoDbURL,
     crypto: {
-        secret: "fnfnfdkyueyuewroqwieyiewrewrfdsyufbhjvgc",
+        secret: process.env.SECRET,
     },
     touchAfter: 24 * 3600, // Set interval of update the sesion for every 24 hours in second(3600)
 });
@@ -74,7 +75,7 @@ store.on("error", () => {
 // Initialize session options
 const sessionOptions = {
     store, //Pass the store variable into express-session
-    secret: "fnfnfdkyueyuewroqwieyiewrewrfdsyufbhjvgc",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -108,6 +109,12 @@ app.use((req, res, next) => {
     // console.log(res.locals);
     next();
 });
+
+
+app.get("/", wrapAsync(async (req, res) => {
+    const allList = await Listing.find({});
+    res.render("./listings/index.ejs", { allList });
+}));
 
 
 app.use("/listings", listingRouter); // For all the path that has common for '/listings'
