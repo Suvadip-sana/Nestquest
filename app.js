@@ -40,7 +40,7 @@ async function main() {
     await mongoose.connect(mongoDbURL);
 };
 
-
+// Call main function
 main()
     .then(() => {
         console.log("Connection Successful!");
