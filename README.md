@@ -1,5 +1,5 @@
 
-# <img src="public/images/logo2.png" alt="logo" width="300">
+# <img src="public/images/logo2.png" alt="logo" width="300"> <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f3c1/512.gif" alt="🏁" width="32" height="32">
 ### Your Gateway to Unique Stays: Experience Travel Differently!
 
 Nestquest is a full-stack web application inspired by Airbnb that allows users to sign up, log in, and explore unique accommodations worldwide. Users can list their properties, add reviews, and view precise locations on a map. The platform is built using modern web technologies like Node.js, Express.js, MongoDB, and integrates with Cloudinary for image storage and Mapbox for map functionality.
