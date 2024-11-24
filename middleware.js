@@ -8,7 +8,7 @@ const { listingSchema, reviewSchema } = require("./schema.js"); // Requiring sch
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){ // Check if the user logged in or not before creating new listing with the help of 'isAuthenticated()' inbuilt method by passport, if not flash a error message and redirect to /listing page
         req.session.redirectUrl = req.originalUrl; // Store the originalUrl from req object where the user try to go before redirect in login page. Store with a new parameter(redirectUrl) inside req's session object
-        req.flash("error", "You must be Logged in to Create Listing!");
+        req.flash("error", "Logged in first to add your Property!");
         return res.redirect("/login");
     };
     next();
@@ -31,7 +31,7 @@ module.exports.isOwner = async(req, res, next) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
     if(!listing.owner._id.equals(res.locals.currUser._id)){
-        req.flash("error", "You are not the owner of this listing!");
+        req.flash("error", "You are not the owner of this Property!");
         return res.redirect(`/listings/${id}`);
     };
     next();
