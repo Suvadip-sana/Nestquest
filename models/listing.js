@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
+const { date } = require("joi");
+
+const imageSchema = new Schema({
+    filename: {
+      type: String, 
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+});
 
 const listingSchema = new Schema({
     title: {
@@ -9,10 +20,7 @@ const listingSchema = new Schema({
     description: {
         type: String,
     },
-    image: {
-        url: String,
-        filename: String,        
-    },
+    image: [imageSchema],
     price: {
         type: Number,
     },
@@ -21,6 +29,9 @@ const listingSchema = new Schema({
     },
     country: {
         type: String,
+    },
+    submitedAt: {
+        type: Date,
     },
     reviews: [
         {

@@ -8,10 +8,11 @@ const userSchema = new Schema({
         type: String,
         required: true
     }
+    // No need to explecetly define 'Username' and 'password'. Passport automatically add this with it's own along with a unique salt value.
 });
 
 
-userSchema.plugin(passportLocalMongoose); // Pass the passport-local-mongoose as a plugin to the Schema
+userSchema.plugin(passportLocalMongoose); // Pass the passport-local-mongoose as a plugin to the Schema. it add username, hashed password, and salt value.
 
 
 module.exports = mongoose.model("User", userSchema);
