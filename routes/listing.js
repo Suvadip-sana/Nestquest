@@ -18,7 +18,7 @@ router.route("/")
     .get(wrapAsync(listingController.index))
     .post(
         isLoggedIn,
-        upload.single("listing[image]"), // Multer process the image file
+        upload.array('listing[image]', 3), // Multer process the image file
         validateListing, // Atfirst call the validateListing function for schema validation then do all other things
         wrapAsync(listingController.createListing));
     
@@ -41,7 +41,7 @@ router.put(
     "/:id",
     isLoggedIn,
     isOwner,
-    upload.single("listing[image]"), // Multer process the image file
+    upload.array('listing[image]', 3), // Multer process the image file
     validateListing, // Same for updation -> call this functoin first then do the others
     wrapAsync(listingController.updateListing)
 );
