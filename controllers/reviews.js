@@ -9,7 +9,7 @@ module.exports.createReview = async (req, res) => {
     let listing = await Listing.findById(id).populate("reviews");
     let userHasReviewed = listing.reviews.some((review) => review.author.equals(req.user._id)); // Allow user to add only one review for a single listing
     if(userHasReviewed){
-        req.flash("error", "You have already submitted a review for this listing! Delete this if you want to add new!");
+        req.flash("error", "You have already submitted a review for this property! Delete this if you want to add new!");
         return res.redirect(`/listings/${listing._id}`);
     }
     let newReview = new Review(req.body.review); // Comming data from review object of the review form
@@ -19,7 +19,7 @@ module.exports.createReview = async (req, res) => {
     await newReview.save();
     await listing.save();
 
-    req.flash("success", "Review Created!"); // flash a success message after successfully created the review
+    req.flash("success", "Review added for this property!"); // flash a success message after successfully created the review
 
     res.redirect(`/listings/${listing._id}`);
 };
