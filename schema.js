@@ -17,6 +17,7 @@ module.exports.listingSchema = Joi.object({ // Means inside Joi always required 
         country: Joi.string().required(),
         image: Joi.string().allow("", null), // Alow the image empty or null because by default mongoose set a default value if empty
     }).required(), // this listing object always be required
+    deleteImages: Joi.array().items(Joi.string()).optional() // Allow deleteImages as an optional array of strings
 });
 
 
