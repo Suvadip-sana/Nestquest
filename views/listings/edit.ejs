@@ -8,22 +8,34 @@
                 <form action="/listings/<%= data._id %>?_method=PUT" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-label form-label-listings">Title</label>
-                        <input type="text" name="listing[title]" class="form-control" id="" value="<%= data.title %>" required>
+                        <input type="text" name="listing[title]" class="form-control" id="title" value="<%= data.title %>" required>
+                        <small class="form-text" id="error-title">Maximum 50 charecters!</small>
                         <div class="invalid-feedback">Please enter a valid title.</div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label form-label-listings">Description</label>
-                        <textarea name="listing[description]" class="form-control" id="" cols="30" rows="5" required><%= data.description %></textarea>
+                        <textarea name="listing[description]" class="form-control" id="description" cols="30" rows="5" required><%= data.description %></textarea>
+                        <small class="form-text" id="error-des">Maximum 1000 charecters!</small>
                         <div class="invalid-feedback">Please enter a valid description.</div>
                     </div>
                     <div class="mb-3">
-                        <label for="" class="form-label form-label-listings">Original Listing Image</label> <br>
-                        <img class="preview-image" src="<%=modifiedUrl%>" alt="Image Preview">
+                        <label class="form-label form-label-listings">Images preview that already uploaded.</label>
+                        <div class="edit-preview-container">
+                            <% data.image.forEach((image, i) => { %>
+                                <div class="edit-preview-inner">
+                                    <img class="preview-image" src="<%=image.url%>" alt="Image Preview">
+                                    <div class="form-check-inline c-check cont">
+                                        <label for="del<%= i %>" class="form-check-label -danger imgDelTex">Want to delete? Check this box.</label> &nbsp;&nbsp;
+                                        <input class="form-check-input imgDel custom-checkbox" type="checkbox" id="del<%= i %>" name="deleteImages[]" value="<%= image.filename %>">
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>                        
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-label form-label-listings">Update Listing Image</label>
-                        <input type="file" name="listing[image]" id="" class="form-control">
-                        <div class="form-text" id="basic-addon4">Upload image in .png, .jpg, .jpeg & .webp format.</div>
+                        <label for="image" class="form-label form-label-listings">Upload new images</label>
+                        <input type="file" name="listing[image]" id="inputFile" class="form-control" multiple>
+                        <div class="form-text" id="basic-addon4">Upload image in .png, .jpg, .jpeg & .webp format. <span id="fileError" class="">(Maximum 3 images.)</span></div>
 
                     </div>
                     <div class="row">
@@ -45,11 +57,62 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-danger mb-5 mt-3">Edit</button>
+                    <button class="btn btn-danger mb-5 mt-3" id="submitButton">Edit</button>
                 </form>
             </div>
         </div>
 
+
+
+        <script>
+
+            const existingImages = document.querySelectorAll(".preview-image").length;
+            const deleteCheckboxes = document.querySelectorAll(".imgDel");
+            const inputFile = document.getElementById("inputFile");
+            const fileError = document.getElementById("fileError");
+            const submitButton = document.getElementById("submitButton");
+
+            // Function to calculate total remaining images
+            const calculateRemainingImages = () => {
+                const selectedToDelete = Array.from(deleteCheckboxes).filter(checkbox => checkbox.checked).length;
+                return existingImages - selectedToDelete;
+            };
+
+            // Event listener for file input validation
+            inputFile.addEventListener("change", () => {
+                const remainingImages = calculateRemainingImages();
+                const selectedFiles = inputFile.files.length;
+
+                if (remainingImages + selectedFiles > 3) {
+                    fileError.classList.remove("no-error");
+                    fileError.classList.add("exceed-error");
+                    submitButton.disabled = true; // Disable the submit button
+                } else {
+                    fileError.classList.remove("exceed-error");
+                    fileError.classList.add("no-error");
+                    submitButton.disabled = false; // Enable the submit button
+                }
+            });
+
+            // Event listener for delete checkboxes
+            deleteCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", () => {
+                    const remainingImages = calculateRemainingImages();
+                    const selectedFiles = inputFile.files.length;
+
+                    if (remainingImages + selectedFiles > 3) {
+                        fileError.classList.remove("no-error");
+                        fileError.classList.add("exceed-error");
+                        submitButton.disabled = true; // Disable the submit button
+                    } else {
+                        fileError.classList.remove("exceed-error");
+                        fileError.classList.add("no-error");
+                        submitButton.disabled = false; // Enable the submit button
+                    }
+                });
+            });
+
+        </script>
 
 
     </body>

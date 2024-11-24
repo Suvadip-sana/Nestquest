@@ -13,13 +13,16 @@
 
                     <div class="card listing-card col" >
 
-                        <img src="<%= list.image.url %>" class="card-img-top" alt="Listing-image" style="height: 19rem;">
-                        <div class="card-img-overlay"></div>
+                        <% if (list.image && list.image.length > 0) { %>
+                            <img src="<%= list.image[0].url %>" class="card-img-top" alt="listing_image" style="height: 19rem;"/>
+                        <% } %>  
+
+                        <div class="card-img-overlay d-flex justify-content-center align-items-center">Click for view more.</div>
 
                         <div class="card-body">
                             <p class="card-text">
                                 <span class="bold1">
-                                    <%= list.title %>
+                                    <%= list.title.length > 35 ? list.title.substring(0, 30) + "...." : list.title %>
                                 </span> <br>
                                 <span class="opacity">
                                     <%= list.location %>, &nbsp; <%= list.country %>

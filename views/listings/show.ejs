@@ -16,7 +16,25 @@
                 </h4>
 
                 <div class="card listing-card">
-                    <img src="<%= data.image.url %>" class="card-img-top show-img" alt="Card Image">
+                    <!-- Carousel for images -->
+                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <% for (let i = 0; i < data.image.length; i++) { %>
+                                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                                    <img src="<%= data.image[i].url %>" class="show-img" alt="Image of <%= data.title %>">
+                                </div>
+                            <% } %>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
                     <div class="card-body">
                         <p class="card-text mt-2">
                             <h5 class="about">About the space</h5>
@@ -29,7 +47,18 @@
                         &#8377;<%= data.price ? data.price.toLocaleString("en-IN") : "N/A" %> &nbsp;<span class="dim">night</span>
                         </p>
                         <hr>
-                        <p class="heading2"><img src="/images/user3.png" alt="" class="user1">&nbsp;&nbsp;Hosted by: <%= data.owner.username %></p>
+                        <p class="heading2"><img src="/images/user3.png" alt="" class="user1">&nbsp;&nbsp;&nbsp;<%= data.owner.username %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <% if(data.submitedAt) {%>
+                            <small class="review-date">
+                                <%= new Date(data.submitedAt).toLocaleDateString("en-IN", {
+                                    weekday: "short",
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric"
+                                }) %>
+                            </small>
+                        <% } %>
+                        </p>
                         <!-- <hr> -->
 
                     </div>
@@ -82,15 +111,7 @@
 
 
                 <!-- check if the currUser is define then check if the user is already add one review for this listing. If added then not allow to add more-->
-                    <% 
-                        let userHasReviewed = false; 
-                        if (currUser && data) { 
-                            userHasReviewed = data.reviews.some((review) => 
-                                review.author && review.author._id && review.author._id.equals(currUser._id)
-                            ); 
-                        };
-                    %>
-
+                    
                     <% if(currUser && !userHasReviewed) { %> <!-- Check if the user is logged in and has not yet reviewed the listing. If not, allow them to leave a review -->
 
 
@@ -112,24 +133,6 @@
                                 <!-- Form for add reviews. -->
                                 <form action="/listings/<%= data._id %>/reviews" method="post" novalidate
                                     class="needs-validation">
-
-                                    <!-- <div>
-                                        <label for="rating" class="form-label bold2">Rating</label>
-                                        <select
-                                            class="form-select form-select-sm focus-ring focus-ring-secondary border rounded-1 pointer"
-                                            name="review[rating]" id="rating" required>
-                                            <option selected disabled value="">Select Rating</option>
-                                            <option value="1">1 Star</option>
-                                            <option value="2">2 Stars</option>
-                                            <option value="3">3 Stars</option>
-                                            <option value="4">4 Stars</option>
-                                            <option value="5">5 Stars</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please give stars!</div>
-                                    </div> -->
-
-
-
 
                                     <div>
                                         <label for="rating" class="form-label bold2">Rating:</label>
@@ -156,8 +159,9 @@
                                         <label for="comment" class="form-label bold2">Comments:</label>
                                         <textarea name="review[comment]"
                                             class="form-control focus-ring focus-ring-secondary border rounded-1"
-                                            id="comment" placeholder="Add some commens..." rows="4" required></textarea>
-                                        <div class="invalid-feedback">Please add some comments for review!</div>
+                                            id="comments" placeholder="Add some commens..." rows="4" required></textarea>
+                                            <small class="form-text" id="errorReview">Maximum 700 charecters!</small>
+                                        <div class="invalid-feedback">Please add comments before submit!</div>
                                     </div>
 
                                     <button class="btn btn-outline-secondary btn-sm mt-4">Submit</button>
@@ -176,24 +180,39 @@
 
                     <!-- <h4 class="mt-4 mb-3"><i class="fa-solid fa-star"></i> Reviews</h4> -->
 
-                    <div class="row">
+                    <div class="row review-section">
 
 
                         <!-- Check if there is review inside reviews. If no review there then print 'no review' -->
                         <% if(data.reviews.length == 0) {%>
-                            <hr>
-                            <h5 class=""><i class="fa-solid fa-star"></i> No reviews yet</h5>
+                            <div>
+                                <hr id="no-review">
+                                <h5 class="no-review"><i class="fa-solid fa-star"></i> No reviews yet</h5>
+                            </div>
                         <% } else{ %> <!--If there is Review then display the review-->
-                            <hr>
-                            <h5 class="mb-3"><i class="fa-solid fa-star"></i> Reviews</h5>
-                            <% for(review of data.reviews) { %>
+                            <div class="review-heading">
+                                <hr>
+                                <h5 class="mb-3"><i class="fa-solid fa-star"></i> Reviews</h5>
+                            </div>
+                            <% for (let i = 0; i < data.reviews.length; i++) { %>
+                                <% let review = data.reviews[i] %>
                             
+                                
                                 <div class="card col-lg-5 col-sm-10 cols-xs-10 me-4 mt-4 mb-4 border-0">
                                     <div class="card-body">
     
     
                                         <div class="d-flex justify-content-between">
-                                            <h6 class="card-title"><img src="/images/user1.png" alt="" class="user2">&nbsp;&nbsp;<%= review.author.username %></h6>
+                                            <h6 class="card-title"><img src="/images/user1.png" alt="" class="user2">&nbsp;&nbsp;<%= review.author.username %>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                <small class="review-date">
+                                                    <%= new Date(review.createdAt).toLocaleDateString("en-IN", {
+                                                        weekday: "short",
+                                                        year: "numeric",
+                                                        month: "short",
+                                                        day: "numeric"
+                                                    }) %>
+                                                </small>
+                                            </h6>
 
                                             <!-- Create the review delete button with a model that have popup alert before delete -->
                                             <% if(currUser && currUser._id.equals(review.author._id))  {%>
@@ -252,12 +271,74 @@
                                             <% } %>
                                             <br>
                                             <span class="text-muted">
-                                                <%=review.comment%>
+                                                <%= review.comment.length > 200 ? review.comment.substring(0, 190) + "...." : review.comment %>
+                                                <% if (review.comment.length > 200) { %>
+                                                    <a class="text-primary seemore" data-bs-toggle="modal" data-bs-target="#modal-<%= i %>">Read more</a>
+                                                <% } %>
                                             </span>
                                         </p>
     
     
                                     </div>
+
+
+                                    <!-- Modal with Unique ID for Each Review -->
+                                    <div class="modal fade" id="modal-<%= i %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel-<%= i %>" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="user-credential">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <img id="review_logo" src="/images/user1.png" alt="Reviewer" class="reviewer-profile user3"> &nbsp;&nbsp;
+                                    
+                                                                <% if (review.author) { %>
+                                                                    <span class="u-name"><%= review.author.username %></span> <span style="font-size: 10px; opacity: 0.7;">owner</span>
+                                                                <% } else { %>
+                                                                    <span style="font-size: 10px; opacity: 0.7;">Unknown author</span>
+                                                                <% } %>
+                                                            </div>
+    
+                                                            <small class="review-date">
+                                                                <%= new Date(review.createdAt).toLocaleDateString("en-IN", {
+                                                                    weekday: "short",
+                                                                    year: "numeric",
+                                                                    month: "short",
+                                                                    day: "numeric"
+                                                                }) %>
+                                                            </small>
+                                                        </div>                                                        
+                                                    </div>
+                                                    
+
+
+                                                    <div class="model-star">
+                                                        <% for (let j = 1; j <= 5; j++) { %>
+                                                            <% if (j <= review.rating) { %>
+                                                                <i class="fa-solid fa-star star2"></i>
+                                                            <% } else { %>
+                                                                <i class="fa-regular fa-star star2"></i>
+                                                            <% } %>
+                                                        <% } %>
+                                                    </div>
+
+                                                    <!-- Display the full comment here -->
+                                                    <%= review.comment %> 
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
     
                                 </div>
                             <% } %>
@@ -265,7 +346,7 @@
                         <% } %>
                     </div>
 
-                    <hr>
+                    <hr class="before-map">
 
                 </div>
 
@@ -282,5 +363,27 @@
 
 
         <script src="/js/map.js"></script> <!--Call the script file at the end because the map will be displayed at the end-->
+        <script>
+            // Track the review comment length
+            let reviewComment = document.getElementById("comments");
+            let reviewError = document.getElementById("errorReview");
+            let maxCharss = 700;
+
+            reviewComment.addEventListener("input", () => {
+            let currLength = reviewComment.value.length;
+
+            if(currLength > maxCharss){
+                reviewComment.value = reviewComment.value.substring(0, maxCharss);
+                reviewError.textContent = `You have reached the ${maxCharss} characters limit!`;
+                reviewError.classList.remove("no-error");
+                reviewError.classList.add("exceed-error");
+            }
+            else{
+                reviewError.textContent = `Maximum ${maxCharss} charecters!`;
+                reviewError.classList.remove("exceed-error");
+                reviewError.classList.add("no-error");
+            }
+            });
+        </script>
 
     </body>
