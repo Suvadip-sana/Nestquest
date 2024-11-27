@@ -9,30 +9,93 @@
 
         <div class="row mb-5">
             <!-- <div class="col-6 row-cols-md-8 offset-3 row-cols-xs-8"> -->
-            <div class="col col-lg-10 col-md-10 col-sm-10 cols-xs-10 offset-lg-1 offset-md-1 offset-sm-1">
+            <div class="col col-lg-10 col-md-10 col-sm-12 cols-xs-10 mx-auto">
 
                 <h4 class="mt-4 mb-4 heading">
                     <%= data.title %>
                 </h4>
 
                 <div class="card listing-card">
-                    <!-- Carousel for images -->
-                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <% for (let i = 0; i < data.image.length; i++) { %>
-                                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-                                    <img src="<%= data.image[i].url %>" class="show-img" alt="Image of <%= data.title %>">
+
+                    <div class="row">
+                        <% if (data.image.length === 1) { %>
+                            <!-- Single image: Full width -->
+                            <div class="col-12">
+                                <img src="<%= data.image[0].url %>" class="img-fluid" style="height: 56vh; border-radius: 0.5rem;" alt="Image of <%= data.title %>">
+                            </div>
+                        <% } else if (data.image.length === 2 || data.image.length === 3) { %>
+                            <!-- Responsive Design: Use Bootstrap d-none classes Means it hide in all screen except large screen -->
+                            <div class="d-none d-lg-block">
+                                <% if (data.image.length === 2) { %>
+                                    <!-- Two images: Each takes half of the width -->
+                                    <div class="row">
+                                        <div class="col-6 pdding">
+                                            <img src="<%= data.image[0].url %>" class="img-fluid" style="height: 56vh; border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;" alt="Image of <%= data.title %>">
+                                        </div>
+                                        <div class="col-6 pdding">
+                                            <img src="<%= data.image[1].url %>" class="img-fluid" style="height: 56vh; border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem;" alt="Image of <%= data.title %>">
+                                        </div>
+                                    </div>
+                                <% } else if (data.image.length === 3) { %>
+                                    <!-- Three images: One large and two small -->
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-6 col-12 pddingg">
+                                            <img src="<%= data.image[0].url %>" class="img-fluid" style="height: 56vh; border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;" alt="Image of <%= data.title %>">
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-12">
+                                            <div class="row">
+                                                <div class="col-12 mb-2 pdding">
+                                                    <img src="<%= data.image[1].url %>" class="img-fluid" style="height: 28vh; border-top-right-radius: 0.5rem;" alt="Image of <%= data.title %>">
+                                                </div>
+                                                <div class="col-12 pdding">
+                                                    <img src="<%= data.image[2].url %>" class="img-fluid" style="height: 27vh; border-bottom-right-radius: 0.5rem;" alt="Image of <%= data.title %>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                    
+                            <!-- Carousel for smaller screens Means it hide for large screen-->
+                            <div class="d-lg-none">
+                                <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <% for (let i = 0; i < data.image.length; i++) { %>
+                                            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                                                <img src="<%= data.image[i].url %>" class="card-img-top show-img" style="height: 56vh;" alt="Image of <%= data.title %>">
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                            <% } %>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                            </div>
+                        <% } else { %>
+                            <!-- Default: Carousel for more than 3 images -->
+                            <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <% for (let i = 0; i < data.image.length; i++) { %>
+                                        <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                                            <img src="<%= data.image[i].url %>" class="card-img-top show-img" style="height: 56vh;" alt="Image of <%= data.title %>">
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        <% } %>
                     </div>
 
                     <div class="card-body">
