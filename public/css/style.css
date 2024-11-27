@@ -236,13 +236,20 @@ footer{
     font-weight: 600;
 }
 /* Style Show image */
-.show-img{
-    height: 55vh;
+.img-fluid{
     background-size: cover !important; 
     background-position: center !important; 
     background-repeat: no-repeat !important; 
-    border-radius: 0.4rem !important;
     width: 100% !important;
+}
+.pddingg{
+    padding-right: 0 !important;
+}
+.pdding{
+    padding: 0 0 0 0.5rem !important;
+}
+.carousel-inner{
+    border-radius: 0.5rem !important;
 }
 .show-titel{
     font-size: 1.5rem;
