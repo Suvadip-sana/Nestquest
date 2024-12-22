@@ -1,4 +1,6 @@
-# **NestQuest**
+<!-- # **NestQuest** -->
+# <img src="public/images/logo2.png" alt="logo" width="300">
+
 
 NestQuest is an online marketplace that connects homeowners who want to rent out their properties with travelers seeking unique accommodations. This platform offers a seamless experience for listing, exploring, and reviewing properties, complete with interactive map integration.
 
