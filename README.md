@@ -19,6 +19,9 @@ Nestquest is a full-stack web application inspired by Airbnb that allows users t
 
 Check out the live demo: [NestQuest Demo](https://nestquest-4ik5.onrender.com/)
 
+## User Manual
+- Check this for [User Guid](USERMANUAL.md)
+
 ## Features
 
 - **User Authentication**: Secure sign up and log in using Passport.js.
