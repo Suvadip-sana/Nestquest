@@ -144,7 +144,7 @@ Visit the website at: [NestQuest](https://nestquest-4ik5.onrender.com/)
 ---
 
 ## **Contact Support**
-If you encounter any issues or have feedback, reach out to the NestQuest support team at: **support@nestquest.com**
+If you encounter any issues or have feedback, reach out to the NestQuest support team at: **nestquestquery@gmail.com**
 
 ---
 
