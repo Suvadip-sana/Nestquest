@@ -110,18 +110,23 @@
                         &#8377;<%= data.price ? data.price.toLocaleString("en-IN") : "N/A" %> &nbsp;<span class="dim">night</span>
                         </p>
                         <hr>
-                        <p class="heading2"><img src="/images/user3.png" alt="" class="user1">&nbsp;&nbsp;&nbsp;<%= data.owner.username %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <p class="heading2"><img src="/images/user3.png" alt="" class="user1">&nbsp;&nbsp;&nbsp;<%= data.owner.username %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                         <% if(data.submitedAt) {%>
-                            <small class="review-date">
-                                <%= new Date(data.submitedAt).toLocaleDateString("en-IN", {
+                            <div class="main-date-stamp">
+                                <span class="date-head">Last updated on: </span>
+                                <span class="date"><%= new Date(data.submitedAt).toLocaleDateString("en-IN", {
                                     weekday: "short",
                                     year: "numeric",
                                     month: "short",
                                     day: "numeric"
-                                }) %>
-                            </small>
+                                }) %></span>
+                            </div>
                         <% } %>
-                        </p>
+
+                        </div>
+                        
                         <!-- <hr> -->
 
                     </div>
@@ -144,13 +149,13 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header text-danger">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete this List?</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete this Property?</h1>
                                         <button type="button" class="btn-close text-danger" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure you want to delete this listing? This action cannot be undone. Once
-                                        deleted, the listing will be permanently removed from the system.
+                                        Are you sure you want to delete this property list? This action cannot be undone. Once
+                                        deleted, the property list will be permanently removed from the system.
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger"

@@ -414,6 +414,16 @@ hr{
 .review-section::-webkit-scrollbar-thumb:hover{
     background-color: #d4d4d4;
 }
+.main-date-stamp{
+    margin-bottom: 1rem;
+    font-size: 0.7rem;
+}
+.main-date-stamp .date-head{
+    opacity: 1;
+}
+.main-date-stamp .date{
+    opacity: 0.7;
+}
 .review-heading{
     /* margin-top: -1rem !important; */
     top: 0 !important;
