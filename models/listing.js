@@ -58,7 +58,7 @@ const listingSchema = new Schema({
 
 
 
-// Create a post middlware that when a listing was deleted it automatically delete it's related review also from database
+// Create a post middlware that when a listing was deleted it automatically delete it's related review also from database. This post middleware is come from mongoose default
 listingSchema.post("findOneAndDelete", async (listing) => {
     if(listing && listing.reviews.length > 0){
         let res = await Review.deleteMany({ _id: { $in: listing.reviews }});
