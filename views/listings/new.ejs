@@ -4,83 +4,73 @@
     <body>
 
         <div class="row">
-            
-            <div class="col col-lg-8 col-md-8 col-sm-10 cols-xs-10 offset-lg-2 offset-md-2 offset-sm-1 offset-sm-1">
-                <h3 class="d-flex justify-content-center mt-5 mb-3 heading">Create New Listing</h3>
+
+            <div class="col col-lg-8 col-md-8 col-sm-10 cols-xs-10 offset-lg-2 offset-md-2 offset-sm-1 offset-sm-1 outer-box">
+                <h3 class="d-flex justify-content-center mb-3 heading">Add Property Details</h3>
 
                 <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+                    
                     <!-- Send all the data as Object (listing object) -->
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="title" class="form-label form-label-listings">Title</label>
                         <input type="text" name="listing[title]" id="title" class="form-control" required>
-                        <small class="form-text" id="error-title">Maximum 50 charecters!</small>
-                        <div class="invalid-feedback">Please add a title.</div>                        
+                        <div class="invalid-feedback" id="titleFeedback">
+                            <span id="invalid-title">Please add a title.</span>
+                            <span id="error-title" class="d-none">You have reached the maximum 50 characters limit for title!</span>
+                        </div>
                     </div>
-                    <div class="mb-3">
+
+                    <div class="mb-1">
                         <label for="description" class="form-label form-label-listings">Description</label>
                         <textarea name="listing[description]" id="description" cols="30" rows="5" class="form-control" required></textarea>
-                        <small class="form-text" id="error-des">Maximum 1000 charecters!</small>
-                        <div class="invalid-feedback">Please add a description.</div>
-
+                        <div class="invalid-feedback" id="descriptionFeedback">
+                            <span id="invalid-description">Please add a description.</span>
+                            <span id="error-description" class="d-none">You have reached the maximum 1000 characters limit for description!</span>
+                        </div>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="image" class="form-label form-label-listings">Upload Listing Image</label>
+
+                    <div class="mb-1">
+                        <label for="image" class="form-label form-label-listings">Upload Property Image</label>
+                        <i class="fi fi-br-exclamation" 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="right"
+                            data-bs-title="Please upload images in .png, .jpg, .jpeg, or .webp format. Other formats are not supported. A maximum of 3 images is allowed."></i>
                         <input type="file" name="listing[image]" id="inputFile" class="form-control" multiple required>
-                        <div class="form-text" id="basic-addon4">Upload image in .png, .jpg, .jpeg & .webp format. <span id="fileError" class="">(Maximum 3 images.)</span></div>
-                        <div class="invalid-feedback">Please upload a image.</div>
+                        <div id="fileError" class="form-text exceed-error invisible"></div>
                     </div>
 
                     <div class="row">
-                        <div class="mb-3 col-md-3">
+                        <div class="col-md-3">
                             <label for="price" class="form-label form-label-listings">Price</label>
-                            <input type="number" name="listing[price]" id="" class="form-control" required>
-                            <div class="invalid-feedback">Please add a price.</div>
-
+                            <input type="number" name="listing[price]" id="price" class="form-control" required>
+                            <div class="invalid-feedback" id="priceFeedback">
+                                <span id="invalid-price">Please add a price.</span>
+                                <span id="error-price" class="d-none">Price should be within 999999</span>
+                            </div>
                         </div>
-                        <div class="mb-3 col-md-5 position-relative">
+                        <div class="col-md-5 position-relative">
                             <label for="location" class="form-label form-label-listings">Location</label>
-                            <input type="text" name="listing[location]" id="" class="form-control" required>
-                            <div class="form-text" id="basic-addon4">location must be precise, it will plotted on map!</div>
-                            <div class="invalid-feedback">Please enter a valid location.</div>
-
+                            <i class="fi fi-br-exclamation" data-bs-toggle="tooltip" data-bs-placement="right"
+                                data-bs-title="Please provide precise location, because it will be plotted on map!"></i>
+                            <input type="text" name="listing[location]" id="location" class="form-control" required>
+                            <div class="invalid-feedback" id="locationFeedback">
+                                <span id="invalid-location">Please enter a valid location.</span>
+                                <span id="error-location" class="d-none">Maximum 25 characters allowed!</span>
+                            </div>
                         </div>
-                        <div class="mb-3 col-md-4">
+                        <div class="col-md-4">
                             <label for="country" class="form-label form-label-listings">Country</label>
-                            <input type="text" name="listing[country]" id="" class="form-control" required>
-                            <div class="invalid-feedback">please enter a valid country name.</div>
-
+                            <input type="text" name="listing[country]" id="country" class="form-control" required>
+                            <div class="invalid-feedback" id="countryFeedback">
+                                <span id="invalid-country">Please enter a valid country name.</span>
+                                <span id="error-country" class="d-none">Maximum 25 characters allowed!</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <button class="btn btn-danger mb-5 mt-3">Add</button>
+
+                    <button class="btn btn-danger mt-3" id="submitButton">Add</button>
+
                 </form>
             </div>
         </div>
-
-
-
-        <script>
-            // Set the image file upload to maximum 3 file
-            let inputFiles = document.getElementById("inputFile");
-            let errorMsg = document.getElementById("fileError");
-
-            let maxFile = 3;
-
-            inputFiles.addEventListener("change", function () {
-            if(this.files.length > maxFile){
-                errorMsg.classList.remove("no-error");
-                errorMsg.classList.add("exceed-error");
-
-                // Clear the input field to reset file selection
-                this.value = '';
-            }
-            else{
-                errorMsg.classList.remove("exceed-error");
-                errorMsg.classList.add("no-error");
-            }
-            });
-        </script>
-
-
     </body>
