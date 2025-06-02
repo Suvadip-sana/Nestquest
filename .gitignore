@@ -1,0 +1,5 @@
+node_modules/
+package-lock.json
+.env
+note.
+init/data2.js
