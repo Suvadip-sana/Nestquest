@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const MAX_IMAGES = 3;
   const MIN_IMAGES = 1;
   const MAX_LENGTHS = {
-    title: 50,
+    title: 70,
     description: 1000,
     price: 999999,
-    location: 25,
-    country: 25
+    location: 75,
+    country: 50
   };
 
   // Initialize validation for all forms
