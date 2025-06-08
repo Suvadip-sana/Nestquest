@@ -12,7 +12,7 @@
                         <input type="text" name="listing[title]" class="form-control" id="title" value="<%= data.title %>" required>
                         <div class="invalid-feedback" id="titleFeedback">
                             <span id="invalid-title">Please add a title.</span>
-                            <span id="error-title" class="d-none">You have reached the maximum 50 characters limit for title!</span>
+                            <span id="error-title" class="d-none">You have reached the maximum 70 characters limit for title!</span>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                             <input type="text" name="listing[location]" class="form-control" id="location" value="<%= data.location %>" required>
                             <div class="invalid-feedback" id="locationFeedback">
                                 <span id="invalid-location">Please enter a valid location.</span>
-                                <span id="error-location" class="d-none">Maximum 25 characters allowed!</span>
+                                <span id="error-location" class="d-none">Maximum 70 characters allowed!</span>
                             </div>
                         </div>
                         <div class="mb-1 col-md-4">
@@ -74,7 +74,7 @@
                             <input type="text" name="listing[country]" class="form-control" id="country" value="<%= data.country %>" required>
                             <div class="invalid-feedback">
                                 <span id="invalid-country">Please enter a valid country name.</span>
-                                <span id="error-country" class="d-none">Maximum 25 characters allowed!</span>
+                                <span id="error-country" class="d-none">Maximum 50 characters allowed!</span>
                             </div>
                         </div>
                     </div>
