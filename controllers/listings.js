@@ -58,9 +58,41 @@ module.exports.createListing = async (req, res, next) => {
 
 
 
-// Index route
+// // Index route
+// module.exports.index = async (req, res) => {
+//     const allList = await Listing.find({});
+//     res.render("./listings/index.ejs", { allList });
+// };
+
+
 module.exports.index = async (req, res) => {
-    const allList = await Listing.find({});
+    const allList = await Listing.aggregate([
+        {
+            $lookup: {
+                from: "reviews",
+                localField: "reviews",
+                foreignField: "_id",
+                as: "reviewObjects"
+            }
+        },
+        {
+            $addFields: {
+                // Add rounding to 1 decimal place
+                avgRating: {
+                    $round: [
+                        { $avg: "$reviewObjects.rating" },
+                        1  // Round to 1 decimal place
+                    ]
+                }
+            }
+        },
+        {
+            $project: {
+                reviewObjects: 0  // Exclude the temporary reviewObjects array
+            }
+        }
+    ]);
+    
     res.render("./listings/index.ejs", { allList });
 };
 
@@ -69,18 +101,36 @@ module.exports.index = async (req, res) => {
 // View specific listing
 module.exports.showListing = async (req, res) => {
     const { id } = req.params;
-    const data = await Listing.findById(id).populate({ path: "reviews", populate: { path: "author"}}).populate("owner");
+    const data = await Listing.findById(id)
+        .populate({ path: "reviews", populate: { path: "author"}})
+        .populate("owner");
+
     if(!data){
         req.flash("error", "This Property does't Exist!"); //If the listing does't exist then flash a error message for this listing
         res.redirect("/listings");
     };
 
+    // Calculate average rating
+    let avgRating = null;
+    if (data.reviews.length > 0) {
+        const totalRating = data.reviews.reduce(
+            (sum, review) => sum + review.rating, 0
+        );
+        avgRating = Math.round((totalRating / data.reviews.length) * 10) / 10;
+    }
+
     let userHasReviewed = false;
     if(req.user){
-        userHasReviewed = data.reviews.some(review => review.author._id.equals(req.user._id));
+        userHasReviewed = data.reviews.some(review => 
+            review.author._id.equals(req.user._id)
+        );
     }
-    // console.log(data);
-    res.render("./listings/show.ejs", { data, userHasReviewed });
+
+    res.render("./listings/show.ejs", { 
+        data, 
+        avgRating,
+        userHasReviewed 
+    });
 };
 
 
