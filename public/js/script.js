@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     title: 70,
     description: 1000,
     price: 999999,
-    location: 75,
+    location: 70,
     country: 50
   };
 
