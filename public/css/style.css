@@ -247,7 +247,7 @@ footer {
 }
 
 .bold2 {
-    font-weight: 400 !important;
+    font-weight: 500 !important;
 }
 
 .location {
@@ -527,6 +527,27 @@ textarea {
 
 .is-invalid~.invalid-feedback {
     visibility: visible;
+}
+#char-counter{
+    font-size: 0.7rem !important;
+}
+.feedback-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.feedback-container .invalid-feedback{
+    width: 80%;
+}
+.feedback-container small{
+    width: 20%;
+}
+.invalid-review-feedback {
+    min-height: 1.5em;
+    color: #dc3545;
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 100%;
 }
 
 #fileError {
