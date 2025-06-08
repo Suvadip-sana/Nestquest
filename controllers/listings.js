@@ -92,6 +92,8 @@ module.exports.index = async (req, res) => {
             }
         }
     ]);
+
+    console.log("All list: ", allList)
     
     res.render("./listings/index.ejs", { allList });
 };
