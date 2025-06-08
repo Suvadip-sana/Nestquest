@@ -322,12 +322,51 @@ textarea {
     display: none !important;
 }
 
+/* #map {
+    min-height: 60vh;
+    min-width: 60vw;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 1rem rgba(91, 99, 69, 0.495);
+    position: relative;
+    overflow: hidden;
+} */
+/* #map p{
+    position: absolute;
+    z-index: 500;
+    bottom: 0;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+} */
+
 #map {
     min-height: 60vh;
     min-width: 60vw;
     border-radius: 0.3rem;
     box-shadow: 0 0 1rem rgba(91, 99, 69, 0.495);
+    position: relative;
+    overflow: hidden;
 }
+
+#map p {
+    position: absolute;
+    bottom: 1.5rem; /* Adjusts upward */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    width: fit-content;
+    z-index: 500;
+    text-align: center;
+}
+
 
 .mapboxgl-marker {
     padding: 5rem 6rem;
@@ -401,11 +440,8 @@ textarea {
 
 .mapboxgl-popup-content strong {
     font-size: 0.9rem;
-}
-
-.mapboxgl-popup-content p {
-    margin-bottom: 0 !important;
-    opacity: 0.5;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .edit-preview-container {
@@ -637,6 +673,10 @@ textarea {
         width: 90vw;
     }
 
+    #map p{
+        font-size: 0.8rem;
+    }
+
     .index-heading img {
         width: 70vw;
     }
@@ -656,6 +696,10 @@ textarea {
 
     .outer-box{
         padding: 1.3rem 0.7rem;
+    }
+
+    #map p{
+        width: 90%;
     }
 
 }
