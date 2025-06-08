@@ -126,9 +126,7 @@
                         <% } %>
 
                         </div>
-                        
                         <!-- <hr> -->
-
                     </div>
 
 
@@ -169,19 +167,13 @@
                             </div>
                         </div>
 
-
                     </div>
-
                     <!-- <hr> -->
-
-
                     <% } %>
 
-
-                <!-- check if the currUser is define then check if the user is already add one review for this listing. If added then not allow to add more-->
+                    <!-- check if the currUser is define then check if the user is already add one review for this listing. If added then not allow to add more-->
                     
                     <% if(currUser && !userHasReviewed) { %> <!-- Check if the user is logged in and has not yet reviewed the listing. If not, allow them to leave a review -->
-
 
                     <!-- Review form -->
                     <hr class="mt-0">
@@ -196,16 +188,19 @@
                     <div>
                         <div class="collapse" id="collapseWidthExample">
                             <div
-                                class="card listing-card card-body col-lg-7 col-md-8 col-sm-10 cols-xs-10 offset-lg-3 offset-md-2 offset-sm-1">
+                                class="card listing-card card-body col-lg-10 col-md-10 col-sm-10 cols-xs-10">
 
                                 <!-- Form for add reviews. -->
-                                <form action="/listings/<%= data._id %>/reviews" method="post" novalidate
-                                    class="needs-validation">
+                                <form action="/listings/<%= data._id %>/reviews" method="post" novalidate class="needs-validation">
 
                                     <div>
                                         <label for="rating" class="form-label bold2">Rating:</label>
+                                        <i class="fi fi-br-exclamation" 
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="right"
+                                            data-bs-title="If no rating is selected, a default rating of 4 stars (Very good) will be submitted automatically. You can choose a rating from 1 to 5 stars."></i>
                                         <fieldset class="starability-growRotate">
-                                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="3" checked aria-label="No rating." />
+                                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="4" checked aria-label="No rating." />
                                             <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                                             <label for="first-rate1" title="Terrible">1 star</label>
                                             <input type="radio" id="first-rate2" name="review[rating]" value="2" />
@@ -217,40 +212,38 @@
                                             <input type="radio" id="first-rate5" name="review[rating]" value="5" />
                                             <label for="first-rate5" title="Amazing">5 stars</label>
                                         </fieldset>
-                                      </div>
-
-
-
-
+                                    </div>
 
                                     <div>
                                         <label for="comment" class="form-label bold2">Comments:</label>
-                                        <textarea name="review[comment]"
+                                        <textarea 
+                                            name="review[comment]"
                                             class="form-control focus-ring focus-ring-secondary border rounded-1"
-                                            id="comments" placeholder="Add some commens..." rows="4" required></textarea>
-                                            <small class="form-text" id="errorReview">Maximum 700 charecters!</small>
-                                        <div class="invalid-feedback">Please add comments before submit!</div>
+                                            id="comments" placeholder="Add some commens..." rows="5" required></textarea>
+                                            <!-- <small class="form-text" id="errorReview">Maximum 1000 charecters!</small>
+                                            <div class="invalid-feedback">Please add comments before submit!</div> -->
+                                        <div class="feedback-container d-flex justify-content-between align-items-center mt-1">
+                                            <div class="invalid-review-feedback d-block">
+                                                <span id="invalid-comments" class="d-none">Please enter your thoughts before submit.</span>
+                                                <span id="errorReview" class="d-none">Maximum 1000 characters allowed!</span>
+                                            </div>
+                                            <small id="char-counter" class="form-text text-muted text-end"></small>
+                                        </div>
                                     </div>
 
-                                    <button class="btn btn-outline-secondary btn-sm mt-4">Submit</button>
+                                    <button class="btn btn-secondary btn-sm mt-1" id="submitButton">Submit</button>
 
                                 </form>
 
                             </div>
                         </div>
                     </div>
-
                     <!-- <hr> -->
-
                     <% } %>
-
-                    
 
                     <!-- <h4 class="mt-4 mb-3"><i class="fa-solid fa-star"></i> Reviews</h4> -->
 
                     <div class="row review-section">
-
-
                         <!-- Check if there is review inside reviews. If no review there then print 'no review' -->
                         <% if(data.reviews.length == 0) {%>
                             <div>
@@ -264,11 +257,8 @@
                             </div>
                             <% for (let i = 0; i < data.reviews.length; i++) { %>
                                 <% let review = data.reviews[i] %>
-                            
-                                
                                 <div class="card col-lg-5 col-sm-10 cols-xs-10 me-4 mt-4 mb-4 border-0">
                                     <div class="card-body">
-    
     
                                         <div class="d-flex justify-content-between">
                                             <h6 class="card-title"><img src="/images/user1.png" alt="" class="user2">&nbsp;&nbsp;<%= review.author.username %>&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -290,9 +280,7 @@
                                                     data-bs-target="#exampleModal<%= review._id %>">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </button>
-    
-    
-    
+
                                                 <div class="modal fade" id="exampleModal<%= review._id %>" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
@@ -324,9 +312,7 @@
                                                 </div>
                                             </div>
                                             <% } %>
-
                                         </div>
-    
     
                                         <!-- Print the stars with a for loop & comment -->
                                         <p class="card-text">
@@ -344,11 +330,8 @@
                                                     <a class="text-primary seemore" data-bs-toggle="modal" data-bs-target="#modal-<%= i %>">Read more</a>
                                                 <% } %>
                                             </span>
-                                        </p>
-    
-    
+                                        </p>    
                                     </div>
-
 
                                     <!-- Modal with Unique ID for Each Review -->
                                     <div class="modal fade" id="modal-<%= i %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel-<%= i %>" aria-hidden="true">
@@ -382,8 +365,6 @@
                                                         </div>                                                        
                                                     </div>
                                                     
-
-
                                                     <div class="model-star">
                                                         <% for (let j = 1; j <= 5; j++) { %>
                                                             <% if (j <= review.rating) { %>
@@ -393,10 +374,8 @@
                                                             <% } %>
                                                         <% } %>
                                                     </div>
-
                                                     <!-- Display the full comment here -->
                                                     <%= review.comment %> 
-
 
                                                 </div>
                                                 <div class="modal-footer">
@@ -405,19 +384,13 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-    
                                 </div>
                             <% } %>
                          
                         <% } %>
                     </div>
-
                     <hr class="before-map">
-
                 </div>
-
             </div>
 
             <div class="map flex mb-5">
@@ -429,20 +402,26 @@
 
 
         <script src="/js/map.js"></script> <!--Call the script file at the end because the map will be displayed at the end-->
-        <script>
+        <!-- <script>
             // Track the review comment length
             let reviewComment = document.getElementById("comments");
             let reviewError = document.getElementById("errorReview");
+            let reviewErrorContainer = document.getElementsByClassName("invalid-review-feedback");
+            const submitBtn = form.querySelector("#submitButton");
+
             let maxCharss = 1000;
 
             reviewComment.addEventListener("input", () => {
             let currLength = reviewComment.value.length;
+
+            const isDisabled = true;
 
             if(currLength > maxCharss){
                 reviewComment.value = reviewComment.value.substring(0, maxCharss);
                 reviewError.textContent = `You have reached the ${maxCharss} characters limit!`;
                 reviewError.classList.remove("no-error");
                 reviewError.classList.add("exceed-error");
+                isDisabled = true;
             }
             else{
                 reviewError.textContent = `Maximum ${maxCharss} charecters!`;
@@ -450,6 +429,96 @@
                 reviewError.classList.add("no-error");
             }
             });
-        </script>
+        </script> -->
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const reviewForm = document.querySelector('form.needs-validation');
+                const commentsTextarea = document.getElementById('comments');
+                const errorReview = document.getElementById('errorReview');
+                const invalidComments = document.getElementById('invalid-comments');
+                const submitBtn = document.getElementById('submitButton');
+                const counter = document.getElementById('char-counter')
+                const maxChars = 1000;
+    
+                if (!commentsTextarea || !reviewForm) return;
+    
+                // Clear textarea on page load
+                commentsTextarea.value = '';
+    
+                counter.textContent = `0/${maxChars}`;
+
+                // Real-time character validation
+                commentsTextarea.addEventListener('input', function() {
+                    const currentLength = this.value.length;
+        
+                    // Update character counter
+                    counter.textContent = `${currentLength}/${maxChars}`;
+        
+                    // Validate content
+                    if (currentLength === 0) {
+                        showError(invalidComments, "Please enter your thoughts before submit.");
+                        errorReview.classList.add('d-none');
+                        submitBtn.disabled = true;
+                    } else if (currentLength > maxChars) {
+                        // Truncate text if exceeds limit
+                        this.value = this.value.substring(0, maxChars);
+                        showError(errorReview, `You've reached the ${maxChars} character limit!`);
+                        invalidComments.classList.add('d-none');
+                        submitBtn.disabled = true;
+                    } else {
+                        clearErrors();
+                        submitBtn.disabled = false;
+                    }
+                });
+    
+                // Form submission handler
+                reviewForm.addEventListener('submit', function(event) {
+                    const commentValue = commentsTextarea.value.trim();
+        
+                    if (commentValue.length === 0) {
+                        event.preventDefault();
+                        showError(invalidComments, "Please enter your thoughts before submit.");
+                        errorReview.classList.add('d-none');
+                        commentsTextarea.classList.add('is-invalid');
+                        submitBtn.disabled = true;
+                    } else if (commentValue.length > maxChars) {
+                        event.preventDefault();
+                        showError(errorReview, `Comments cannot exceed ${maxChars} characters!`);
+                        invalidComments.classList.add('d-none');
+                        commentsTextarea.classList.add('is-invalid');
+                        submitBtn.disabled = true;
+                    }
+                });
+    
+                function showError(element, message) {
+                    element.textContent = message;
+                    element.classList.remove('d-none');
+                    element.parentElement.classList.add('d-block');
+                    commentsTextarea.classList.add('is-invalid');
+                    submitBtn.disabled = true;
+                }
+    
+                function clearErrors() {
+                    errorReview.classList.add('d-none');
+                    invalidComments.classList.add('d-none');
+                    commentsTextarea.classList.remove('is-invalid');
+                    submitBtn.disabled = false;
+                }
+
+    
+    // function createCharCounter() {
+    //     const counter = document.createElement('small');
+    //     counter.id = 'char-counter';
+    //     counter.className = 'form-text text-muted';
+    //     counter.textContent = `0/${maxChars} characters`;
+    //     commentsTextarea.parentNode.appendChild(counter);
+    //     return counter;
+    // }
+    
+    // Initialize character counter
+    // createCharCounter();
+            });
+    </script>
 
     </body>
