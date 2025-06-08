@@ -601,7 +601,6 @@ textarea {
     top: 0 !important;
     position: sticky !important;
     z-index: 100;
-    padding-bottom: 0.15rem !important;
     background-color: #fff;
 }
 
@@ -609,8 +608,41 @@ textarea {
     margin-top: 0 !important;
 }
 
+.review-heading .b-hr{
+    margin-bottom: 0 !important;
+}
+
 .review-heading h5 {
     padding-top: 0.15rem !important;
+    font-size: 2rem;
+}
+
+.review-heading .dim{
+    font-size: 1rem;
+}
+
+.avg-rating-index {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #f4f4f4be;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+    
+.avg-rating-index .fa-star {
+    color: #FF385C;
+    font-size: 14px;
+}
+    
+.last-row {
+    margin-top: -5px !important;
+}
+    
+.dim-night {
+    color: #717171;
+    font-size: 14px;
 }
 
 #no-review {
