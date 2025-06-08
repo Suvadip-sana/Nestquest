@@ -129,7 +129,6 @@
                         <!-- <hr> -->
                     </div>
 
-
                     <% if(currUser && currUser._id.equals(data.owner._id))  {%> <!--If the both (listing ownerId & currentuserId that was saved by locals using req.user are same, display the edit & delete button, else hide them)-->
                         <hr class="mt-0">
                     <div class="btns mb-3">
@@ -395,41 +394,13 @@
 
             <div class="map flex mb-5">
                 <h4>Where you'll be</h4>
-                <div class="" id="map"></div>
+                <div class="" id="map"><p>Exact location provided after booking!</p></div>
             </div>
 
         </div>
 
 
         <script src="/js/map.js"></script> <!--Call the script file at the end because the map will be displayed at the end-->
-        <!-- <script>
-            // Track the review comment length
-            let reviewComment = document.getElementById("comments");
-            let reviewError = document.getElementById("errorReview");
-            let reviewErrorContainer = document.getElementsByClassName("invalid-review-feedback");
-            const submitBtn = form.querySelector("#submitButton");
-
-            let maxCharss = 1000;
-
-            reviewComment.addEventListener("input", () => {
-            let currLength = reviewComment.value.length;
-
-            const isDisabled = true;
-
-            if(currLength > maxCharss){
-                reviewComment.value = reviewComment.value.substring(0, maxCharss);
-                reviewError.textContent = `You have reached the ${maxCharss} characters limit!`;
-                reviewError.classList.remove("no-error");
-                reviewError.classList.add("exceed-error");
-                isDisabled = true;
-            }
-            else{
-                reviewError.textContent = `Maximum ${maxCharss} charecters!`;
-                reviewError.classList.remove("exceed-error");
-                reviewError.classList.add("no-error");
-            }
-            });
-        </script> -->
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -506,18 +477,6 @@
                     submitBtn.disabled = false;
                 }
 
-    
-    // function createCharCounter() {
-    //     const counter = document.createElement('small');
-    //     counter.id = 'char-counter';
-    //     counter.className = 'form-text text-muted';
-    //     counter.textContent = `0/${maxChars} characters`;
-    //     commentsTextarea.parentNode.appendChild(counter);
-    //     return counter;
-    // }
-    
-    // Initialize character counter
-    // createCharCounter();
             });
     </script>
 
