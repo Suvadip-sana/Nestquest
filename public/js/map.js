@@ -11,7 +11,7 @@ const map = new mapboxgl.Map({
 // Create a popup, but don't add it to the map yet
 const popup = new mapboxgl.Popup({ offset: 25, closeButton: false, closeOnClick: false}).setMaxWidth("300px").setHTML(
   
-  `<strong>${listing.location}, ${listing.country}</strong><p>Exact location provided after booking!</p>`
+  `<strong>${listing.location}, ${listing.country}</strong>`
 );
 
 
