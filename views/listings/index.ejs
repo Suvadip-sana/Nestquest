@@ -5,8 +5,6 @@
             <h3 class="index-heading d-flex justify-content-center mt-3 flex-xs-wrap fs-1 fs-md-2 fs-sm-3 fs-xs-4"><img src="/images/heading.png" alt="calligraphy-fonts" border="0"></h3> 
             <span class="d-flex justify-content-center mb-5">Experience Travel Differently!</span>
         
-        
-
         <div class="row row-col-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-1 row-cols-xs-1 gridify">
             <% for(let list of allList) {%>
                 <a href="/listings/<%= list._id %>" class="card-link">
@@ -26,21 +24,25 @@
                                 </span> <br>
                                 <span class="opacity">
                                     <%= list.location %>, &nbsp; <%= list.country %>
-                                </span> <br> 
-                                &#8377;<%= list.price ? list.price.toLocaleString("en-IN") : "N/A" %> &nbsp; <span class="dim">night</span>
+                                </span> 
                             </p>
+                            <div class="d-flex justify-content-between align-items-center last-row">
+                                <div>
+                                    &#8377;<%= list.price ? list.price.toLocaleString("en-IN") : "N/A" %> &nbsp;
+                                    <span class="dim dim-night">night</span>
+                                </div>
+                                
+                                <% if (typeof list.avgRating === 'number') { %>
+                                <div class="avg-rating-index">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span><%= list.avgRating.toFixed(1) %></span>
+                                </div>
+                                <% } %>
+                            </div>
                         </div>
-
                     </div>
-
                 </a>
-
                 <% } %>
         </div>
-
-
-
-
-
 
     </body>
