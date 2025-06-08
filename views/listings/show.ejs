@@ -252,7 +252,17 @@
                         <% } else{ %> <!--If there is Review then display the review-->
                             <div class="review-heading">
                                 <hr>
-                                <h5 class="mb-3"><i class="fa-solid fa-star"></i> Reviews</h5>
+                                <!-- <h5 class="mb-3"><i class="fa-solid fa-star"></i> Reviews</h5>
+                                <% if(avgRating) {%>
+                                    <%= avgRating %>
+                                <% } %> -->
+                                <h5 class="mb-3">
+                                    <!-- Show average rating in reviews header -->
+                                    <i class="fa-solid fa-star"></i> 
+                                    <span class="rating-value"><%= avgRating.toFixed(1) %></span> 
+                                    <span class="dim"> with <%= data.reviews.length %> Reviews</span>
+                                </h5>
+                                <hr class="b-hr">
                             </div>
                             <% for (let i = 0; i < data.reviews.length; i++) { %>
                                 <% let review = data.reviews[i] %>
